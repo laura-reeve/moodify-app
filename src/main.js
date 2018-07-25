@@ -3,8 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Spotify from 'spotify-web-api-node'
-import VueSpotify from 'vue-spotify'
 
 Vue.config.productionTip = false
 
@@ -15,5 +13,3 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
-
-Vue.use(VueSpotify, new Spotify())

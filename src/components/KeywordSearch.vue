@@ -104,7 +104,7 @@ export default {
           
           var authorize = function() {
             var client_id = '2acb1bf4bb054c3a9d24c0256833c1a7'; // Your client id
-            var redirect_uri = 'http://reevedesigns.com/spotify-weather-app/#/authorize'; // Your redirect uri
+            var redirect_uri = 'http://localhost:8080/#/'; // Your redirect uri
             var state = generateRandomString(16);
             localStorage.setItem(stateKey, state);
             var scope = 'user-read-private user-read-email';
