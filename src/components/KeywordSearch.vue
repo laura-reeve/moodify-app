@@ -1,8 +1,7 @@
 <template>
   <div>
     <div id="login" v-show="mustLogin">
-      <p>You must log in to Spotify to use this app.</p>
-      <p><button id="login-button" @click="login">Log In</button></p>
+     
       <div id="user-profile-template"></div>
       <div id="user-profile"></div>
       <div id="oauth-template"></div>
