@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Congrats, you have been authorized.</p>
-    <router-link to="/" v-on:click="storeToken">Return Home</router-link>
+    <router-link to="/" v-on:click="storeToken">Give me music!</router-link>
   </div>
 </template>
 

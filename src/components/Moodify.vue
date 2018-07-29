@@ -1,13 +1,12 @@
 <template>
   <div>
-    <div id="login" v-show="mustLogin">
-     
+    <div id="login">
       <div id="user-profile-template"></div>
       <div id="user-profile"></div>
       <div id="oauth-template"></div>
       <div id="oauth"></div>
     </div>
-    <div id="loggedIn" v-show="loggedIn">
+    <div id="loggedIn">
       <p>Music for your Mood</p>
       <p>This is a playlist based on {{query}}</p>
       <form v-on:submit.prevent="getPlaylist">
@@ -27,14 +26,12 @@
 import axios from 'axios';
 
 export default {
-  name: 'KeywordSearch',
+  name: 'Moodify',
   data () {
     return {
       results: null,
       errors: [],
       query: '',
-      mustLogin: true,
-      loggedIn: false
     }
   },
   methods: {
@@ -103,7 +100,7 @@ export default {
           
           var authorize = function() {
             var client_id = '2acb1bf4bb054c3a9d24c0256833c1a7'; // Your client id
-            var redirect_uri = 'http://localhost:8080/#/'; // Your redirect uri
+            var redirect_uri = 'http://localhost:8080/authorize'; // Your redirect uri
             var state = generateRandomString(16);
             localStorage.setItem(stateKey, state);
             var scope = 'user-read-private user-read-email';
