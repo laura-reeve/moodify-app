@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div id="login">
+      <div id="user-profile-template"></div>
+      <div id="user-profile"></div>
+      <div id="oauth-template"></div>
+      <div id="oauth"></div>
+    </div>
     <h1>Moodify</h1>
     <p>Music to suit your mood.</p>
       <p>You must log in to Spotify to use this app.</p>
@@ -38,7 +44,7 @@ export default {
     },
     authorize: function(stateKey) {
             var client_id = '2acb1bf4bb054c3a9d24c0256833c1a7'; // Your client id
-            var redirect_uri = 'http://localhost:8080/#/moodify'; // Your redirect uri
+            var redirect_uri = 'http://localhost:8080/authorize'; // Your redirect uri
             var state = this.generateRandomString(16);
             localStorage.setItem(stateKey, state);
             var scope = 'user-read-private user-read-email';
@@ -50,7 +56,16 @@ export default {
             url += '&state=' + encodeURIComponent(state);
             window.location = url;
     },
-    login: function() {
+    login: function () {
+
+          // display login information 
+      var userProfileSource = document.getElementById('user-profile-template').innerHTML,
+      //  userProfileTemplate = Handlebars.compile(userProfileSource),
+          userProfilePlaceholder = document.getElementById('user-profile');
+      var oauthSource = document.getElementById('oauth-template').innerHTML,
+      //  oauthTemplate = Handlebars.compile(oauthSource),
+          oauthPlaceholder = document.getElementById('oauth');
+
       let stateKey = "spotify_auth_state";
       let params = this.getHashParams();
       let storedState = localStorage.getItem(stateKey);
@@ -69,15 +84,16 @@ export default {
             },
             success: function(response) {
               userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-              (this.mustLogin = false), (this.loggedIn = true);
+              window.location.replace("http://localhost:8080/authorize")
             }
           });
         } else {
-          (this.mustLogin = true), (this.loggedIn = false);
+          // Function will only throw this error WTF...
+          console.log("Authentication needed, retreiving access token.");
         }
       }
       this.authorize(stateKey);
-    },
+    }
   }
 }
 </script>
