@@ -19,22 +19,9 @@ export default {
         return pre;
       }, {});
     let accessCode = hash2Obj["#access_token"];
-    // let searchUri = "search/" + accessCode;
-    // let authorizedHome = "/#" + accessCode;
     this.$router.push({ path: `/moodify#${accessCode}`});
     return {};
   },
-  methods: {
-    /* This will not work. Token must be stored in the URL.
-      storeToken: function () {
-      console.log('Caching access token.');
-      this.accessToken = this.$route.query.access_token;
-
-      let cacheLable = ' access_token' + accessToken;
-      let cacheExpiry = 60 * 60* 1000; // 60 minutes
-
-      this.$ls.set(cacheLable, cacheExpiry);
-      console.log('Access token has been stored for 1 hour.'); */
-    }
+  methods: {}
   }
 </script>
