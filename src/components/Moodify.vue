@@ -9,7 +9,8 @@
       <ul v-if="results && results.length > 0">
        <li v-for="result in results">
          <p>{{result.name}}</p>
-         <p>{{result.tracks}}</p>
+         <button id="playlistLink" v-on:click="openPlaylist()">{{result.tracks.href}}</button>
+         <p>There are {{result.tracks.total}} tracks in this playlist.</p>
        </li>
       </ul>
     </div>      
@@ -48,7 +49,23 @@ export default {
         .catch(error => {
           this.errors.push(error);
         });
-      } 
+      },
+      openPlaylist: function () {
+        let config = {
+        headers: {
+          Authorization: "Bearer ".concat(this.access_token)
+        }
+      };
+        let URL = document.getElementById("playlistLink").innerHTML;
+      axios
+        .get(URL, config)
+        .then(response => { // put hash here somehow
+          window.location.replace(URL.concat(this.access_token));
+        })
+        .catch(error => {
+          this.errors.push(error);
+        });
+      }
     }
   }
 </script>
