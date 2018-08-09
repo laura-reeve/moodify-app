@@ -23,6 +23,6 @@ export default new Router({
       path: '/authorize',
       name: 'Authorize',
       component: Authorize
-    }
+    },
   ]
 })

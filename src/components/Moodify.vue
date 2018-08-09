@@ -3,9 +3,10 @@
     <div id="loggedIn">
       <p>Music for your Mood</p>
       <p>This is a playlist based on {{query}}</p>
-      <form v-on:submit.prevent="getPlaylist">
-        <p>I'm feeling like...<input type="text" v-model.lazy="query" placeholder="something"><button type="submit">Go</button></p>
-      </form>
+      
+      <!-- mood slider goes here -->
+      <mood-slider @selected="getPlaylist"></mood-slider>
+      
       <ul v-if="results && results.length > 0">
        <li v-for="result in results">
          <p>{{result.name}}</p>
@@ -22,6 +23,7 @@
 
 <script>
 import axios from 'axios';
+import moodSlider from '@/components/moodSlider';
 
 export default {
   name: 'Moodify',
@@ -34,9 +36,14 @@ export default {
       access_token: access_token
     }
   },
+  components: {
+    'mood-slider': moodSlider
+  },
   methods: {
-    getPlaylist: function () {
+    getPlaylist: function (someValue) {
       // API call
+      console.log(someValue);
+      this.query = someValue;
       let config = {
         headers: {
           Authorization: "Bearer ".concat(this.access_token)
@@ -85,5 +92,5 @@ export default {
 <style scoped>
   li {
     list-style-type: none;
-}
+  }
 </style>
