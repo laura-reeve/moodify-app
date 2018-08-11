@@ -10,13 +10,21 @@
       <ul v-if="results && results.length > 0">
        <li v-for="result in results">
          <p>{{result.name}}</p>
-         <p>{{result.tracks.href}}</p>
+         <p id="playlistLink">{{result.tracks.href}}</p>
          <!-- I can't get another link from this page to work... -->
-         <!-- <buton id="playlistLink" v-on:click="openPlaylist()">{{result.tracks.href}}</button> -->
+         <!-- <button id="playlistLink" v-on:click="openPlaylist()">{{result.tracks.href}}</button> -->
          <p>There are {{result.tracks.total}} tracks in this playlist.</p>
+         <!-- put accordian menu here - hide display first and then show on click -->
          <hr/>
        </li>
       </ul>
+      <div>
+         <ul v-if="lists && lists.length > 0">
+           <li v-for="list in lists">
+             <p>{{list.name}} - {{list.artists}}</p>
+           </li>
+         </ul>
+         </div>
     </div>      
   </div>
 </template>
@@ -31,6 +39,7 @@ export default {
     let access_token = this.$route.hash.substring(1);
     return {
       results: [],
+      lists: [],
       errors: [],
       query: '',
       access_token: access_token
@@ -52,10 +61,18 @@ export default {
         let URL = `https://api.spotify.com/v1/search?type=playlist&q=${this.query}`;
       let self = this;
       axios
-        .get(URL, config)
+        .get(URL, config) 
         .then(response => {
           self.results = response.data.playlists.items;
-        })
+          // yes stop here... console.log("OK maybe stop here?")
+          // second API call for playlist href - this is not working rrgh!
+          axios.get(document.getElementById("playlistLink").innerHTML, config);
+          console.log("stop here?");
+          })
+          .then(response => {
+            console.log("second function works");
+            self.lists = response.data.track.items;
+          })
         .catch(error => {
           this.errors.push(error);
         });

@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul v-for="mood in moods">
-      <li v-on:click="selectMood">
+      <li @click="selectMood">
         <img :src="mood.src" :alt="mood.text">
         <p>{{mood.text}}</p>
       </li>
@@ -50,10 +50,10 @@ data () {
       }
     } 
   },
-  methods: {
+  methods: { 
     selectMood: function (event) {
       this.$emit('selected', event.currentTarget.childNodes[0].alt)
-    }
+    } 
   }
 }
 </script>
