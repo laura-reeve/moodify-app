@@ -14,17 +14,17 @@
          <!-- I can't get another link from this page to work... -->
          <!-- <button id="playlistLink" v-on:click="openPlaylist()">{{result.tracks.href}}</button> -->
          <p>There are {{result.tracks.total}} tracks in this playlist.</p>
+         
          <!-- put accordian menu here - hide display first and then show on click -->
+          <ul v-if="lists && lists.length > 0">
+            <li v-for="list in lists">
+              <p>{{list.name}} - {{list.artists}}</p>
+            </li>
+          </ul>
+         
          <hr/>
-       </li>
+        </li>
       </ul>
-      <div>
-         <ul v-if="lists && lists.length > 0">
-           <li v-for="list in lists">
-             <p>{{list.name}} - {{list.artists}}</p>
-           </li>
-         </ul>
-         </div>
     </div>      
   </div>
 </template>
@@ -64,10 +64,9 @@ export default {
         .get(URL, config) 
         .then(response => {
           self.results = response.data.playlists.items;
-          // yes stop here... console.log("OK maybe stop here?")
+          
           // second API call for playlist href - this is not working rrgh!
-          axios.get(document.getElementById("playlistLink").innerHTML, config);
-          console.log("stop here?");
+          axios.get(document.getElementById("playlistLink").innerHTML, config)
           })
           .then(response => {
             console.log("second function works");
@@ -76,7 +75,7 @@ export default {
         .catch(error => {
           this.errors.push(error);
         });
-    }, /* I have no idea why this doesn't work... do I need a new token?
+    }, /* I think this second function doesn't work as a separate second API call...
       openPlaylist: function () {
         let config = {
         headers: {
