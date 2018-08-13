@@ -7,6 +7,10 @@
       <!-- mood slider goes here -->
       <mood-slider @selected="getPlaylist"></mood-slider>
       
+      <!-- Blob loader animation -->
+      <blob-loader v-if="showLoading"></blob-loader>
+
+      <!-- API call 1 - return playlist objects -->
       <ul v-if="results && results.length > 0">
        <li v-for="result in results">
          <p>{{result.name}}</p>
@@ -32,6 +36,7 @@
 <script>
 import axios from 'axios';
 import moodSlider from '@/components/moodSlider';
+import Loader from '@/components/Loader';
 
 export default {
   name: 'Moodify',
@@ -42,14 +47,18 @@ export default {
       lists: [],
       errors: [],
       query: '',
-      access_token: access_token
+      access_token: access_token,
+      showLoading: false
     }
   },
   components: {
-    'mood-slider': moodSlider
+    'mood-slider': moodSlider,
+    'blob-loader': Loader
   },
   methods: {
     getPlaylist: function (someValue) {
+      // show blob loading animation
+      this.showLoading = true;
       // API call
       console.log(someValue);
       this.query = someValue;
@@ -64,6 +73,7 @@ export default {
         .get(URL, config) 
         .then(response => {
           self.results = response.data.playlists.items;
+          this.showLoading = false;
           
           // second API call for playlist href - this is not working rrgh!
           axios.get(document.getElementById("playlistLink").innerHTML, config)
@@ -71,6 +81,7 @@ export default {
           .then(response => {
             console.log("second function works");
             self.lists = response.data.track.items;
+            this.showLoading = false;
           })
         .catch(error => {
           this.errors.push(error);
@@ -106,7 +117,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  li {
+ul {
+  padding-left: 0px;
+}
+
+li {
     list-style-type: none;
-  }
+}
 </style>

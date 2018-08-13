@@ -10,10 +10,14 @@
     <p>Music to suit your mood.</p>
       <p>You must log in to Spotify to use this app.</p>
       <p><button id="login-button" v-on:click="login">Login</button></p>
+      <!-- blob loading animation -->
+      <blob-loader v-if="showLoading"></blob-loader>
   </div>
 </template>
 
 <script>
+import Loader from '@/components/Loader';
+
 export default {
   name: 'Login',
   data () {
@@ -21,8 +25,12 @@ export default {
     return {
       results: null,
       errors: [],
-      access_token: access_token
+      access_token: access_token,
+      showLoading: false
     };
+  },
+  components: {
+    'blob-loader': Loader
   },
   methods: {
     getHashParams: function() {
@@ -58,6 +66,9 @@ export default {
             window.location = url;
     },
     login: function () {
+
+      // show loading animation
+      this.showLoading = true;
 
           // display login information 
       var userProfileSource = document.getElementById('user-profile-template').innerHTML,
