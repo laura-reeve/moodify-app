@@ -115,6 +115,7 @@ export default {
 <style scoped>
   #login-button {
     background-color: #5cb85c;
+    margin-top: 20px;
     padding: 7px 50px;
     border-radius: 30px;
     font-family: 'Montserrat', Helvetica, Arial, sans-serif;
