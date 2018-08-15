@@ -19,11 +19,13 @@ export default {
 	width: 100px;
   display: block;
   margin: auto;
+	padding-left: 20px;
+	padding-top: 30px;
 }
 
 .blob {
 	border-radius: 50%;
-	background-color: #000000;
+	background-color: whitesmoke;
 	display: block;
 	float: left;
 	margin: 5px 2px;

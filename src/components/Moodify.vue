@@ -10,11 +10,18 @@
       <!-- Blob loader animation -->
       <blob-loader v-if="showLoading"></blob-loader>
 
+      <!-- Error list -->
+        <ul v-if="errors.length > 0">
+          <li v-for="error in errors">
+            <p>{{error}}</p>
+          </li>
+        </ul>
+
       <!-- API call 1 - return playlist objects -->
       <ul v-if="results && results.length > 0">
        <li v-for="result in results">
          <p>{{result.name}}</p>
-         <p id="playlistLink">{{result.tracks.href}}</p>
+         <p id="playlistLink" v-on:click="openPlaylist">{{result.tracks.href}}</p>
          <!-- I can't get another link from this page to work... -->
          <!-- <button id="playlistLink" v-on:click="openPlaylist()">{{result.tracks.href}}</button> -->
          <p>There are {{result.tracks.total}} tracks in this playlist.</p>
@@ -44,7 +51,7 @@ export default {
     let access_token = this.$route.hash.substring(1);
     return {
       results: [],
-      lists: [],
+      lists: {},
       errors: [],
       query: '',
       access_token: access_token,
@@ -57,6 +64,8 @@ export default {
   },
   methods: {
     getPlaylist: function (someValue) {
+      // clear errors 
+      this.errors.clear;
       // show blob loading animation
       this.showLoading = true;
       // API call
@@ -74,19 +83,21 @@ export default {
         .then(response => {
           self.results = response.data.playlists.items;
           this.showLoading = false;
-          
+          }) /*
           // second API call for playlist href - this is not working rrgh!
           axios.get(document.getElementById("playlistLink").innerHTML, config)
+          console.log(document.getElementById("playlistLink").innerHTML);
           })
           .then(response => {
             console.log("second function works");
             self.lists = response.data.track.items;
             this.showLoading = false;
-          })
+          }) */
         .catch(error => {
           this.errors.push(error);
+          this.showLoading = false;
         });
-    }, /* I think this second function doesn't work as a separate second API call...
+    }, // I think this second function doesn't work as a separate second API call...
       openPlaylist: function () {
         let config = {
         headers: {
@@ -99,29 +110,29 @@ export default {
       axios
         .get(URL, config)
         .then(response => { 
-          fetch(URL, {
-          headers: {
-            Accept: "application/json",
-            Authorization: this.access_token,
-            "Content-Type": "application/json"
-            }
-          });
-        })
+            console.log("second function works");
+            self.lists = response.data.track.items;
+            this.showLoading = false;
+          })
         .catch(error => {
           this.errors.push(error);
+          this.showLoading = false;
         }); 
-      } */
+      } 
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 ul {
-  padding-left: 0px;
+  padding: 0 10px 0 10px;
 }
 
 li {
     list-style-type: none;
+}
+.error {
+  color: red;
 }
 </style>

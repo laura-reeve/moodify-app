@@ -9,7 +9,7 @@
     <h1>Moodify</h1>
     <p>Music to suit your mood.</p>
       <p>You must log in to Spotify to use this app.</p>
-      <p><button id="login-button" v-on:click="login">Login</button></p>
+      <p><button id="login-button" v-on:click="login">LOG IN</button></p>
       <!-- blob loading animation -->
       <blob-loader v-if="showLoading"></blob-loader>
   </div>
@@ -113,5 +113,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  #login-button {
+    background-color: #5cb85c;
+    padding: 7px 50px;
+    border-radius: 30px;
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    color: white;
+  }
 </style>

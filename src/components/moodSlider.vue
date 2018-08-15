@@ -66,4 +66,9 @@ ul {
   list-style-type: none;
   display: inline-block;
 }
+div {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+}
 </style>
