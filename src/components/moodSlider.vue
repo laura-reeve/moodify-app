@@ -59,8 +59,26 @@ data () {
 </script>
 
 <style scoped>
-img {
-  max-width: 100px;
+/* Responsive emoji */
+@media screen and (max-width: 5000px) {
+  img {
+    max-width: 100px;
+  }
+}
+@media screen and (max-width: 900px) {
+  img {
+    max-width: 90px;
+  }
+}
+@media screen and (max-width: 600px) {
+  img {
+    max-width: 70px;
+  }
+}
+@media screen and (max-width: 450px) {
+  img {
+    max-width: 50px;
+  }
 }
 ul {
   list-style-type: none;
@@ -70,5 +88,6 @@ div {
   background-color: white;
   color: black;
   border-radius: 10px;
+  margin-top: 30px;
 }
 </style>

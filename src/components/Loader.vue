@@ -19,7 +19,7 @@ export default {
 	width: 100px;
   display: block;
   margin: auto;
-	padding-left: 20px;
+	padding-left: 25px;
 	padding-top: 30px;
 }
 

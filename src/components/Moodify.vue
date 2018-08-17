@@ -1,19 +1,20 @@
 <template>
   <div>
     <div id="loggedIn">
-      <p>Music for your Mood</p>
-      <p>This is a playlist based on {{query}}</p>
+      <h1>Moodify</h1>
+      <p>Music to suit your mood.</p>
+      <p>Here are some {{query}} playlists.</p>
       
       <!-- mood slider goes here -->
       <mood-slider @selected="getPlaylist"></mood-slider>
       
-      <!-- Blob loader animation -->
+      <!-- blob loader animation -->
       <blob-loader v-if="showLoading"></blob-loader>
 
-      <!-- Error list -->
-        <ul v-if="errors.length > 0">
+      <!-- error list OK now this isn't displaying WTF -->
+        <ul v-if="errors && errors.length > 0">
           <li v-for="error in errors">
-            <p>{{error.response}}</p>
+            <p id="error">{{error.response}}</p>
           </li>
         </ul>
 
@@ -52,7 +53,7 @@ export default {
       results: [],
       lists: [],
       errors: [],
-      query: '',
+      query: '______',
       access_token: access_token,
       showLoading: false
     }
@@ -64,7 +65,9 @@ export default {
   methods: { //Return list of playlists
     getPlaylist: function (someValue) {
       // clear errors 
-      this.errors.clear;
+      this.errors = [];
+      // clear previous playlists
+      this.results = [];
       // show blob loading animation
       this.showLoading = true;
       // API call
@@ -89,6 +92,10 @@ export default {
         });
     }, // Return list of tracks - artists
       openPlaylist: function (URL) {
+        // clear errors 
+        this.errors = [];
+        // clear previous tracks
+        this.lists = [];
         let config = {
         headers: {
           Accept: "application/json",
@@ -121,7 +128,15 @@ ul {
 li {
     list-style-type: none;
 }
-.error {
-  color: red;
+#error {
+  color: white;
+}
+button {
+    background-color: #5cb85c;
+    padding: 7px 50px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    color: white;
 }
 </style>
