@@ -101,7 +101,6 @@ export default {
             }
           });
         } else {
-          // Function will only throw this error WTF...
           console.log("Authentication needed, retreiving access token.");
         }
       }

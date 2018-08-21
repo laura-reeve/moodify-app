@@ -23,15 +23,12 @@
        <li v-for="result in results">
          <p>{{result.name}}</p>
          <p>There are {{result.tracks.total}} tracks in this playlist.</p>
+         <button @click="playMusic(result.external_urls.spotify)">Listen to tracks</button>
 
-         <button id="playlistLink" @click="openPlaylist(result.tracks.href)">Show me tracks</button>
+         <button id="playlistLink" @click="openPlaylist(result.tracks.href)">Display tracks</button>
 
-          <!-- API call 2 - return track list -->
-          <ul v-if="lists && lists.length > 0">
-            <li v-for="list in lists"> 
-              <p>{{list.track.name}} - {{list.track.artists[0].name}}</p>
-            </li>
-          </ul>
+          <!-- API call 2 - return track list refactored to tracks.vue-->
+          <!-- switch to a different view here -->
          
          <hr/>
         </li>
@@ -51,7 +48,6 @@ export default {
     let access_token = this.$route.hash.substring(1);
     return {
       results: [],
-      lists: [],
       errors: [],
       query: '______',
       access_token: access_token,
@@ -60,7 +56,10 @@ export default {
   },
   components: {
     'mood-slider': moodSlider,
-    'blob-loader': Loader
+    'blob-loader': Loader,
+  },
+  props: {
+    playlistData: {}
   },
   methods: { //Return list of playlists
     getPlaylist: function (someValue) {
@@ -94,27 +93,14 @@ export default {
       openPlaylist: function (URL) {
         // clear errors 
         this.errors = [];
-        // clear previous tracks
-        this.lists = [];
-        let config = {
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer ".concat(this.access_token),
-          "Content-Type": "application/json"
-        }
-      };
-      axios
-        .get(URL, config)
-        .then(response => { 
-            console.log(URL);
-            this.lists = response.data.items;
-            this.showLoading = false;
-          })
-        .catch(error => {
-          this.errors.push(error);
-          this.showLoading = false;
-        }); 
-      } 
+        // show loader
+        this.showLoading = true;
+        // localStorage.setItem('accessToken', this.access_token);
+        this.$router.push({ path: `/tracks#${this.access_token}`});
+      },
+      playMusic: function (external_url) {
+        window.location.replace(external_url);
+      }
     }
   }
 </script>
