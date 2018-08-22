@@ -3,6 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Storage from 'vue-ls';
+
+let options = {
+  namespace: 'auth___',
+  name: 'ls',
+  storage: 'local',
+};
+
+Vue.use(Storage, options);
 
 Vue.config.productionTip = false
 

@@ -3,12 +3,22 @@
     <h1>Moodify</h1>
     <p>Music to suit your mood.</p>
 
-    <!-- data from Moodify -->
+    <!-- data from Moodify 
     <p>This is the {{playlistData.name}} playlist.</p>
-    <p>There are {{playlistData.tracks.total}} songs in this playlist.</p>
-    <button @click="playMusic(playlistData.external_urls.spotify)">Listen to playlist</button> 
+    <p>There are {{playlistData.tracks.total}} songs in this playlist.</p> -->
+    <a class="button" target="_blank" :href="this.openURL">Listen to tracks</a>
 
-<!-- can I do a router-link here to go back to Moodify? -->
+    <router-link class="button" to="/Moodify">Pick another playlist</router-link>
+
+      <!-- blob loader -->
+      <blob-loader v-if="showLoading"></blob-loader>
+
+      <!-- error display -->
+        <ul v-if="errors && errors.length > 0">
+          <li v-for="error in errors">
+            <p id="error">Error: {{error.response.status}} - {{error.response.statusText}}</p>
+          </li>
+        </ul>
 
       <!-- data from Tracks -->
       <ul v-if="lists && lists.length > 0">
@@ -22,33 +32,37 @@
 <script>
 // treat Moodify as the child component?
 import Moodify from '@/components/Moodify';
+import Loader from '@/components/Loader';
+import axios from 'axios';
 
 export default {
   name: 'Tracks',
   data () {
-    let access_token = this.$route.hash.substring(1);
     return {
       playlistData: [],
       lists: [],
-      access_token: access_token
+      errors: [],
+      URL: this.$route.params.URL,
+      openURL: this.$route.params.openURL,
+      showLoading: true
     }
   },
   components: {
-    'moodify': Moodify 
+    'moodify': Moodify,
+    'blob-loader': Loader
   },
-  mounted: {
-    getTracks: function () {
-      // localStorage.getItem('accessToken');
+  mounted: function () {
+      console.log(this.URL);
       let config = {
         headers: {
           Accept: "application/json",
-          Authorization: "Bearer ".concat(this.access_token),
+          Authorization: "Bearer ".concat(this.$ls.get('accessToken')),
           "Content-Type": "application/json"
         }
       };
       axios
-      // need to define URL = result.tracks.href from first API call...
-        .get(playlistData.tracks.href, config)
+      // pass URL definition in route-link from Moodify?
+        .get(this.URL, config)
         .then(response => { 
             console.log("Works so far...");
             this.lists = response.data.items;
@@ -58,23 +72,28 @@ export default {
           this.errors.push(error);
           this.showLoading = false;
         }); 
-    },
-    methods: {
-      playMusic: function (external_url) {
-        window.location.replace(external_url);
-      }
-    }
   }
 }
 </script>
 
 <style scoped>
-button {
+.button {
     background-color: #5cb85c;
     padding: 7px 50px;
     margin-bottom: 10px;
     border-radius: 30px;
     font-family: 'Montserrat', Helvetica, Arial, sans-serif;
     color: white;
+    text-decoration: none;
+}
+#error {
+  color: red;
+}
+li {
+  list-style-type: none;
+}
+ul {
+  padding-left: 0px;
+  padding-top: 10px;
 }
 </style>

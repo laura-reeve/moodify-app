@@ -19,6 +19,7 @@ export default {
         return pre;
       }, {});
     let accessCode = hash2Obj["#access_token"];
+    this.$ls.set('accessToken', accessCode, 60 * 60 * 1000); // set auth token to expire in one hour
     this.$router.push({ path: `/moodify#${accessCode}`});
     return {};
   },

@@ -14,7 +14,7 @@
       <!-- error list OK now this isn't displaying WTF -->
         <ul v-if="errors && errors.length > 0">
           <li v-for="error in errors">
-            <p id="error">{{error.response}}</p>
+            <p id="error">Error: {{error.response.data.error.status}} - {{error.response.data.error.message}}</p>
           </li>
         </ul>
 
@@ -23,9 +23,9 @@
        <li v-for="result in results">
          <p>{{result.name}}</p>
          <p>There are {{result.tracks.total}} tracks in this playlist.</p>
-         <button @click="playMusic(result.external_urls.spotify)">Listen to tracks</button>
+         <a class="button" target="_blank" :href="result.external_urls.spotify">Listen to tracks</a>
 
-         <button id="playlistLink" @click="openPlaylist(result.tracks.href)">Display tracks</button>
+         <router-link class="button" id="playlistLink" v-bind:to="{name: 'Tracks', params: { URL: result.tracks.href, openURL: result.external_urls.spotify }}">Display tracks</router-link>
 
           <!-- API call 2 - return track list refactored to tracks.vue-->
           <!-- switch to a different view here -->
@@ -54,12 +54,19 @@ export default {
       showLoading: false
     }
   },
+  mounted: function () {
+    if (this.$ls.get === undefined) { // if no token, redirect to Login
+      this.router.push("Login");
+    } else {
+      
+    }
+  },
   components: {
     'mood-slider': moodSlider,
     'blob-loader': Loader,
   },
   props: {
-    playlistData: {}
+    playlistData: [] // this is not connecting to results to return data in Tracks
   },
   methods: { //Return list of playlists
     getPlaylist: function (someValue) {
@@ -74,7 +81,7 @@ export default {
       this.query = someValue;
       let config = {
         headers: {
-          Authorization: "Bearer ".concat(this.access_token)
+          Authorization: "Bearer ".concat(this.$ls.get("accessToken"))
         }
       };
         let URL = `https://api.spotify.com/v1/search?type=playlist&q=${this.query}`;
@@ -83,24 +90,23 @@ export default {
         .get(URL, config) 
         .then(response => {
           self.results = response.data.playlists.items;
+          // turn off loader
           this.showLoading = false;
           })
         .catch(error => {
           this.errors.push(error);
+          // turn off loader
           this.showLoading = false;
         });
-    }, // Return list of tracks - artists
+    } /* Retiring this method in favor of router-link // Return list of tracks - artists
       openPlaylist: function (URL) {
         // clear errors 
         this.errors = [];
         // show loader
         this.showLoading = true;
-        // localStorage.setItem('accessToken', this.access_token);
-        this.$router.push({ path: `/tracks#${this.access_token}`});
-      },
-      playMusic: function (external_url) {
-        window.location.replace(external_url);
-      }
+        
+        // this.$router.push({ path: `/tracks#${this.access_token}`});
+      } */
     }
   }
 </script>
@@ -115,14 +121,18 @@ li {
     list-style-type: none;
 }
 #error {
-  color: white;
+  color: red;
 }
-button {
+.button {
     background-color: #5cb85c;
     padding: 7px 50px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-radius: 30px;
     font-family: 'Montserrat', Helvetica, Arial, sans-serif;
     color: white;
+    text-decoration: none;
+}
+hr {
+  margin-top: 30px;
 }
 </style>
