@@ -11,7 +11,7 @@
 
 <script>
 export default {
-name: 'moodSlider',
+name: 'moodslider',
 data () {
   return {
     moods: {
@@ -65,25 +65,30 @@ data () {
     max-width: 100px;
   }
 }
+
 @media screen and (max-width: 900px) {
   img {
     max-width: 90px;
   }
 }
+
 @media screen and (max-width: 600px) {
   img {
     max-width: 70px;
   }
 }
+
 @media screen and (max-width: 450px) {
   img {
     max-width: 50px;
   }
 }
+
 ul {
   list-style-type: none;
   display: inline-block;
 }
+
 div {
   background-color: white;
   color: black;

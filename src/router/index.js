@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
-import Moodify from '@/components/Moodify'
-import Authorize from '@/components/Authorize'
-import Tracks from '@/components/Tracks'
+import login from '@/components/login'
+import moodify from '@/components/moodify'
+import authorize from '@/components/authorize'
+import tracks from '@/components/tracks'
 
 Vue.use(Router)
 
@@ -12,23 +12,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name:'Login',
-      component: Login
+      name:'login',
+      component: login
     },
     {
       path: '/moodify',
-      name: 'Moodify',
-      component: Moodify
+      name: 'moodify',
+      component: moodify
     },
     {
       path: '/authorize',
-      name: 'Authorize',
-      component: Authorize
+      name: 'authorize',
+      component: authorize
     },
     {
       path: '/tracks/:URL/:openURL',
-      name: 'Tracks',
-      component: Tracks
+      name: 'tracks',
+      component: tracks
     }
   ]
 })

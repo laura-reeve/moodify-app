@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'Authorize',
+  name: 'authorize',
   created: function() {
     console.log("Authorization token created");
   },
