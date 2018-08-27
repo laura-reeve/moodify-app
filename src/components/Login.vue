@@ -52,8 +52,8 @@ export default {
       },
       authorize: function (stateKey) {
         var client_id = '2acb1bf4bb054c3a9d24c0256833c1a7'; // Your client id
-        var redirect_uri = 'http://localhost:8080/authorize'; // Your redirect uri TEST
-        //  var redirect_uri = 'https://moodify-app.firebaseapp.com/authorize'; // Your redirect uri PROD
+        //  var redirect_uri = 'http://localhost:8080/authorize'; // Your redirect uri TEST
+        var redirect_uri = 'https://moodify-app.firebaseapp.com/authorize'; // Your redirect uri PROD
         var state = this.generateRandomString(16);
         localStorage.setItem(stateKey, state);
         var scope = 'user-read-private user-read-email';
@@ -96,8 +96,8 @@ export default {
               },
               success: function (response) {
                 userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-                window.location.replace("http://localhost:8080/authorize") // TEST
-                //  window.location.replace("http://moodify-app.firebaseapp.com/authorize")  // PROD
+                //  window.location.replace("http://localhost:8080/authorize") // TEST
+                window.location.replace("http://moodify-app.firebaseapp.com/authorize")  // PROD
               }
             });
           } else {

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Storage from 'vue-ls';
+import VueAnalytics from 'vue-analytics'
 
 let options = {
   namespace: 'auth___',
@@ -12,6 +13,17 @@ let options = {
 };
 
 Vue.use(Storage, options);
+
+Vue.use(VueAnalytics, {
+  id: 'UA-124672993-1',
+  autotracking: {
+    exception: true
+  },
+  router,
+  debug: {
+    enabled: true
+  }
+})
 
 Vue.config.productionTip = false
 
