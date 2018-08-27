@@ -23,7 +23,7 @@
         <li v-for="result in results">
           <p>{{result.name}}</p>
           <p>There are {{result.tracks.total}} tracks in this playlist.</p>
-          <a class="button" target="_blank" :href="result.external_urls.spotify">Listen to tracks</a>
+          <a class="button" target="_blank" :href="result.external_urls.spotify" @click="moodifyOpenPlaylist">Listen to tracks</a>
 
           <router-link class="button" id="playlistLink" v-bind:to="{name: 'tracks', params: { URL: result.tracks.href, openURL: result.external_urls.spotify }}">Display tracks</router-link>
 
@@ -95,9 +95,12 @@ export default {
           // turn off loader
           this.showLoading = false;
         });
+    },
+    moodifyOpenPlaylist() {
+      this.$ga.event('button-moodify', 'click', 'playlist-moodify', '1');
     }
-    }
-    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -3,7 +3,7 @@
     <h1>Moodify</h1>
     <p>Music to suit your mood.</p>
 
-    <a class="button" target="_blank" :href="this.openURL">Listen to tracks</a>
+    <a class="button" target="_blank" :href="this.openURL" @click="tracksOpenPlaylist">Listen to tracks</a>
 
     <router-link class="button" to="/moodify">Pick another playlist</router-link>
 
@@ -66,8 +66,13 @@ export default {
         // turn off loader
         this.showLoading = false;
       });
+  },
+  methods: {
+  tracksOpenPlaylist() {
+    this.$ga.event('button-tracks', 'click', 'playlist-tracks', '1');
+    }
   }
-  }
+}
 </script>
 
 <style scoped>
