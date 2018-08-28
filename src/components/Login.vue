@@ -114,7 +114,7 @@ export default {
 <style scoped>
 /* This <button> is slightly different from the other "buttons" */
   #login-button {
-    background-color: #5cb85c;
+    background-color: #1db954;
     margin-top: 20px;
     padding: 7px 50px;
     border-radius: 30px;
