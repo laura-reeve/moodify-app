@@ -19,10 +19,7 @@ Vue.use(VueAnalytics, {
   autotracking: {
     exception: true
   },
-  router,
-  debug: {
-    enabled: true
-  }
+  router
 })
 
 Vue.config.productionTip = false

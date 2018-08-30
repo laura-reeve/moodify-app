@@ -1,24 +1,27 @@
 # Moodify
 
-### A project built with Spotify API authentication, Vue.js, and love.
+### A project built with Spotify API authentication, Vue.js, and webpack.
+### By Laura Reeve - [Portfolio](http://reevedesigns.com) - [Email](mailto:laura@reevedesigns.com)
 
 **NOTE: This is deployed using Firebase. Using Github gh-pages will not work! Authentication uses a '#' then a random string in the URL, so you must be ablt to control where the '#' goes (see "login" function on login.vue).  
 
 **The flow of the app goes like this ...**
-* Arrive at Login.vue (home/unauthenticated page)
-* Pressing Log In button runs login function on login.vue
-* Spotify authentication pop up runs and asks users to log in to their Spotify account
-* After successful login, redirect URI is to authorize.vue
-* Authorize.vue runs remainder of login function and stores authentication token in local storage (accessToken)
-* You will need the authentication token to route anywhere else within the app or you will receive an error
-* User is automatically routed to moodify.vue
-* This is where the user clicks an emoji or descriptive word to generate a list of Spotify playlists (API call #1)
-* User receives a list of playlists based on mood clicked and has option to show tracks or play tracks
-* Show tracks takes user to tracks.vue (API call #2) where they are shown the "Title - Artist" for each playlist
-* Note that "Artist" is an object in API call #2 (my code references [0] to return the first instance)
-* On either moodify.vue or tracks.vue, if user clicks on Listen to Tracks button, new tab will open with Spotify web player, which is used to open the playlist and play all tracks within (no authentication token needed here)
+* Arrive at Login.vue (home/unauthenticated page).
+* Pressing Log In button runs login() function on login.vue.
+* Spotify authentication pop up runs and asks users to log in to their Spotify account.
+* After successful login, redirect URI is to authorize.vue.
+* Authorize.vue runs remainder of login function and stores authentication token in local storage (accessToken).
+* You will need the authentication token to route anywhere else within the app or you will receive an error.
+* User is automatically routed to moodify.vue.
+* This is where the user clicks an emoji or descriptive word to generate a list of Spotify playlists (API call #1).
+* User receives a list of playlists based on selected mood and has option to show tracks or play tracks.
+* Show tracks takes user to tracks.vue (API call #2) where they are shown the "Title - Artist" for each playlist.
+* Note that "Artist" is an object in API call #2 (my code references [0] to return the first instance).
+* On either moodify.vue or tracks.vue, if user clicks on Listen to Tracks button, new tab will open with Spotify web player, which is used to open the playlist and play all tracks within (no authentication token needed here).
 
-This was built for a final capstone project for the Web Dev Certificate at Seattle University (2018)
+I have installed vue-analytics, vue-ls (local storage), and axios via npm install. The mood slider and loading animation have been refactored out into their own components. The loading animation runs on CSS and comes from [CodePen](https://codepen.io/laura-reeve/pen/KBNyeQ). 
+
+This was built for a final capstone project for the Web Dev Certificate at Seattle University (2018).
 This is also a constant work in progress, forks and pull requests welcome!  
 
 Don't forget the webpack basics!
