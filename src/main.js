@@ -5,6 +5,10 @@ import App from './App'
 import router from './router'
 import Storage from 'vue-ls';
 import VueAnalytics from 'vue-analytics'
+import es6Promise from 'es6-promise' 
+
+// to work with IE 11
+es6Promise.polyfill()
 
 let options = {
   namespace: 'auth___',
