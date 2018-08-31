@@ -3,7 +3,7 @@
 ### A project built with Spotify API authentication, Vue.js, and webpack.
 ### By Laura Reeve - [Portfolio](http://reevedesigns.com) - [Email](mailto:laura@reevedesigns.com)
 
-**NOTE: This is deployed using Firebase. Using Github gh-pages will not work! Authentication uses a '#' then a random string in the URL, so you must be ablt to control where the '#' goes (see "login" function on login.vue).  
+**NOTE: This is deployed using Firebase. Using Github gh-pages will not work! Authentication uses a '#' then a random string in the URL, so you must be able to control where the '#' goes (see "login" function on login.vue).  
 
 **The flow of the app goes like this ...**
 * Arrive at Login.vue (home/unauthenticated page).
@@ -19,7 +19,10 @@
 * Note that "Artist" is an object in API call #2 (my code references [0] to return the first instance).
 * On either moodify.vue or tracks.vue, if user clicks on Listen to Tracks button, new tab will open with Spotify web player, which is used to open the playlist and play all tracks within (no authentication token needed here).
 
-I have installed vue-analytics, vue-ls (local storage), and axios via npm install. The mood slider and loading animation have been refactored out into their own components. The loading animation runs on CSS and comes from [CodePen](https://codepen.io/laura-reeve/pen/KBNyeQ). 
+I have installed vue-analytics, vue-ls (local storage), and axios via npm install. 
+The mood slider and loading animation have been refactored out into their own components. 
+The loading animation runs on CSS and comes from [CodePen](https://codepen.io/laura-reeve/pen/KBNyeQ). 
+I also installed (npm) es6promise so that my Vue app would run on IE 11 (check out main.js for the import statments).  
 
 This was built for a final capstone project for the Web Dev Certificate at Seattle University (2018).
 This is also a constant work in progress, forks and pull requests welcome!  
